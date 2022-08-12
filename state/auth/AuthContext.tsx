@@ -12,9 +12,12 @@ const defaultValue: IAuthContext = {
   logOut: () => undefined,
 };
 
+type AuthProviderProps = {
+  children: React.ReactNode; // 👈️ type children
+};
 const AuthContext = createContext<IAuthContext>(defaultValue);
 
-export const AuthProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC<AuthProviderProps> = (props) => {
   const [authenticated, setAuthenticated] = useState(
     defaultValue.authenticated
   );
@@ -23,7 +26,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ authenticated, login, logOut }}>
-      {children}
+      {props.children}
     </AuthContext.Provider>
   );
 };
